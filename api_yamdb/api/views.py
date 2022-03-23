@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -8,11 +9,12 @@ from rest_framework import filters, generics, permissions, status, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
+from reviews.models import Category, Genre, Review, Title
 
 from api_yamdb.settings import EMAIL_HOST_USER
+
 from .filters import TitleFilter
 from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrStaffOrReadOnly
-from reviews.models import Category, Genre, Review, Title
 from .serializers import (CategorySerializer, CommentSerializer,
                           GenreSerializer, MyTokenObtainPairSerializer,
                           ReviewSerializer, SignUpSerializer,
@@ -66,11 +68,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        obj = get_object_or_404(
-            queryset,
-            username=self.kwargs['username']
-        )
-        return obj
+        return get_object_or_404(queryset, username=self.kwargs['username'])
 
 
 class UserSelfDetail(generics.RetrieveUpdateAPIView):
@@ -80,11 +78,7 @@ class UserSelfDetail(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        obj = get_object_or_404(
-            queryset,
-            username=self.request.user.username
-        )
-        return obj
+        return get_object_or_404(queryset, username=self.request.user.username)
 
     def perform_update(self, serializer):
         request_role = serializer.validated_data.get('role')
@@ -129,7 +123,7 @@ def send_token(request):
     Отправка кода подтверждения по почте.
     """
     if request.method != 'POST':
-        return
+        return None
 
     serializer = SignUpSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)

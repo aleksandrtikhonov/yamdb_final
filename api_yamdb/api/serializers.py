@@ -186,9 +186,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         user = get_object_or_404(User, username=attrs['username'])
         refresh = self.get_token(user)
-        data = {'token': str(refresh.access_token), }
-
-        return data
+        return {'token': str(refresh.access_token), }
 
 
 class ReviewSerializer(serializers.ModelSerializer):
