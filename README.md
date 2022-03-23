@@ -1,3 +1,2 @@
-![Alt](https://github.com/aleksandrtikhonov/yamdb_final/workflows/yamdb_final%20workflow/badge.svg 'Actions Status')
-test
+![status workflow](https://github.com/aleksandrtikhonov/yamdb_final/actions/workflows/main.yaml/badge.svg)
 test
