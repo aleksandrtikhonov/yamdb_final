@@ -1,4 +1,3 @@
-from api_yamdb.settings import EMAIL_HOST_USER
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -18,6 +17,8 @@ from .serializers import (CategorySerializer, CommentSerializer,
                           ReviewSerializer, SignUpSerializer,
                           TitleDisplaySerializer, TitleSerializer,
                           UserSerializer)
+
+from api_yamdb.settings import EMAIL_HOST_USER
 from .viewsets import CreateListDeleteViewSet
 
 User = get_user_model()
